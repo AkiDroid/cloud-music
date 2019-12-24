@@ -27,5 +27,6 @@ module.exports = {
       'named': 'never',
       'anonymous': 'always'
     }],
+    "react/prop-types": 0,
   }
 }
