@@ -15,7 +15,6 @@ const Scroll = forwardRef((props, ref) => {
 
   const { direction, click, refresh, pullUpLoading, pullDownLoading, bounceTop, bounceBottom } = props
   const { pullUp, pullDown, onScroll } = props
-  console.log(scrollContainerRef)
 
   useEffect(() => {
     const scroll = new BScroll(scrollContainerRef.current, {
