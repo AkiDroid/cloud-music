@@ -1,8 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Horizen from '../../baseUI/horizen-item'
+import { alphaTypes, categoryTypes } from '../../api/config'
+import { NavContainer } from './style'
 
 function Singers(props) {
+  const [category, setCategory] = useState('')
+  const [alpha, setAlpha] = useState('')
+  const handleUpdateAlpha = (val) => {
+    setAlpha(val)
+  }
+  const handleUpdateCategory = (val) => {
+    setCategory(val)
+  }
   return (
-    <div>Singers</div>
+    <NavContainer>
+      <Horizen
+        list={categoryTypes}
+        title="分类: "
+        handleClick={handleUpdateCategory}
+        oldVal={category}></Horizen>
+      <Horizen
+        list={alphaTypes}
+        title="首字母: "
+        handleClick={handleUpdateAlpha}
+        oldVal={alpha}></Horizen>
+    </NavContainer>
   )
 }
 
