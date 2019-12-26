@@ -8,11 +8,12 @@ export const changeBannerList = (data) => ({
 })
 
 export const changeRecommendList = (data) => ({
-  type: actionTypes.CHANGE_RECOMMEDN_LIST,
+  type: actionTypes.CHANGE_RECOMMEND_LIST,
   data: fromJS(data)
 })
 
 export const getBannerList = () => {
+  // 异步dispatch, 应该是redux-thunk提供的功能
   return (dispatch) => {
     getBannerRequest().then(data => {
       dispatch(changeBannerList(data.banners))
