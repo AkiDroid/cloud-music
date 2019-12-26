@@ -37,13 +37,11 @@ function Horizen(props) {
   const Category = useRef(null)
   useEffect(() => {
     const categoryDOM = Category.current
-    console.log(Category.current)
     const tagElems = categoryDOM.querySelectorAll('span')
     let totalWidth = 0
     Array.from(tagElems).forEach(ele => {
       totalWidth += ele.offsetWidth
     })
-    console.log(totalWidth)
     categoryDOM.style.width = `${totalWidth}px`
   }, [])
   return (
