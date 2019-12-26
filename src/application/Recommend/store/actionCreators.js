@@ -12,11 +12,17 @@ export const changeRecommendList = (data) => ({
   data: fromJS(data)
 })
 
+export const changeEnterLoading = (data) => ({
+  type: actionTypes.CHANGE_ENTER_LOADING,
+  data
+})
+
 export const getBannerList = () => {
   // 异步dispatch, 应该是redux-thunk提供的功能
   return (dispatch) => {
     getBannerRequest().then(data => {
       dispatch(changeBannerList(data.banners))
+      dispatch(changeEnterLoading(false))
     }).catch(() => {
       console.log('轮播图数据传输错误')
     })

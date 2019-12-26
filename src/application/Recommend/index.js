@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
-import Slider from '../../components/slider'
 import { useSelector, useDispatch } from 'react-redux'
+import { forceCheck } from 'react-lazyload'
+import Slider from '../../components/slider'
+import Loading from '../../baseUI/loading/index'
 import * as actionTypes from './store/actionCreators'
 import RecommendList from '../../components/list'
 import { Content } from './style'
@@ -11,12 +13,18 @@ function Recommend(props) {
     bannerList: state.getIn(['recommend', 'bannerList']),
     recommendList: state.getIn(['recommend', 'recommendList'])
   }))
+  const enterLoading = useSelector(state =>
+    state.getIn(['recommend', 'enterLoading']))
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(actionTypes.getBannerList())
-    dispatch(actionTypes.getRecommendList())
+    if (!bannerList.size) {
+      dispatch(actionTypes.getBannerList())
+    }
+    if (!recommendList.size) {
+      dispatch(actionTypes.getRecommendList())
+    }
   }, [])
 
   const bannerListJS = bannerList ? bannerList.toJS() : []
@@ -24,12 +32,13 @@ function Recommend(props) {
 
   return (
     <Content>
-      <Scroll>
+      <Scroll onScroll={forceCheck}>
         <div>
           <Slider bannerList={bannerListJS}></Slider>
           <RecommendList recommendList={recommendListJS}></RecommendList>
         </div>
       </Scroll>
+      {enterLoading ? <Loading></Loading> : null}
     </Content>
   )
 }
