@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import LazyLoad, { forceCheck } from 'react-lazyload'
 import { alphaTypes, categoryTypes } from '../../api/config'
@@ -16,10 +16,11 @@ import {
   changePullDownLoading,
   refreshMoreHotSingerList
 } from './store/actionCreators'
+import { CategoryDataContext, CHANGE_ALPHA, CHANGE_CATEGORY } from './data'
 
 function Singers(props) {
-  const [category, setCategory] = useState('')
-  const [alpha, setAlpha] = useState('')
+  const { data, dispatch } = useContext(CategoryDataContext)
+  const { category, alpha } = data.toJS()
 
   const { singerList, enterLoading, pullUpLoading, pullDownLoading, pageCount } = useSelector(mapState)
   const {
@@ -30,15 +31,17 @@ function Singers(props) {
   } = mapDispatch(useDispatch())
 
   useEffect(() => {
-    getHotSingerDispatch()
+    if (!singerList.size) {
+      getHotSingerDispatch()
+    }
   }, [])
 
   const handleUpdateAlpha = (val) => {
-    setAlpha(val)
+    dispatch({ type: CHANGE_ALPHA, data: val })
     updateDispatch(category, val)
   }
   const handleUpdateCategory = (val) => {
-    setCategory(val)
+    dispatch({ type: CHANGE_CATEGORY, data: val })
     updateDispatch(val, alpha)
   }
 
