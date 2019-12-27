@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { renderRoutes } from 'react-router-config'
 import { forceCheck } from 'react-lazyload'
 import Slider from '../../components/slider'
 import Loading from '../../baseUI/loading/index'
@@ -9,6 +10,7 @@ import { Content } from './style'
 import Scroll from '../../baseUI/scroll'
 
 function Recommend(props) {
+  console.log(props)
   const { bannerList, recommendList } = useSelector(state => ({
     bannerList: state.getIn(['recommend', 'bannerList']),
     recommendList: state.getIn(['recommend', 'recommendList'])
@@ -39,6 +41,7 @@ function Recommend(props) {
         </div>
       </Scroll>
       <Loading show={enterLoading}/>
+      {renderRoutes(props.route.routes)}
     </Content>
   )
 }

@@ -66,6 +66,7 @@ function Singers(props) {
                     <img src={`${item.picUrl}?param=300x300`} width="100%" height="100%" alt="music"/>
                   </LazyLoad>
                 </div>
+                <span className="name">{item.name}</span>
               </ListItem>
             )
           })
